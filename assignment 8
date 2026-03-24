@@ -1,0 +1,110 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+struct Patient {
+    int id;
+    string name;
+    int age;
+    string gender;
+    string diagnosis;
+};
+
+int main() {
+    Patient* p = new Patient[100];
+    int count = 0;
+    int choice;
+
+    do {
+        cout << "\n1 Add\n2 Show\n3 Search\n4 Update\n5 Save\n6 Exit\n";
+        cin >> choice;
+
+        // add
+        if (choice == 1) {
+            cout << "id: ";
+            cin >> p[count].id;
+            cout << "name: ";
+            cin >> p[count].name;
+            cout << "age: ";
+            cin >> p[count].age;
+            cout << "gender: ";
+            cin >> p[count].gender;
+            cout << "diagnosis: ";
+            cin >> p[count].diagnosis;
+            count++;
+        }
+
+        // show
+        else if (choice == 2) {
+            for (int i = 0; i < count; i++) {
+                cout << p[i].id << " " << p[i].name << " "
+                     << p[i].age << " " << p[i].gender << " "
+                     << p[i].diagnosis << endl;
+            }
+        }
+
+        // search (simple binary style)
+        else if (choice == 3) {
+            int id;
+            cout << "enter id: ";
+            cin >> id;
+
+            int l = 0, r = count - 1;
+            bool ok = false;
+
+            while (l <= r) {
+                int m = (l + r) / 2;
+
+                if (p[m].id == id) {
+                    cout << "found: " << p[m].name << endl;
+                    ok = true;
+                    break;
+                }
+                else if (p[m].id < id)
+                    l = m + 1;
+                else
+                    r = m - 1;
+            }
+
+            if (!ok) cout << "not found\n";
+        }
+
+        // update
+        else if (choice == 4) {
+            int id;
+            cout << "id to update: ";
+            cin >> id;
+
+            for (int i = 0; i < count; i++) {
+                if (p[i].id == id) {
+                    cout << "new name: ";
+                    cin >> p[i].name;
+                    cout << "new age: ";
+                    cin >> p[i].age;
+                    cout << "new diagnosis: ";
+                    cin >> p[i].diagnosis;
+                }
+            }
+        }
+
+        // save
+        else if (choice == 5) {
+            ofstream f("patients.txt");
+
+            for (int i = 0; i < count; i++) {
+                f << p[i].id << " " << p[i].name << " "
+                  << p[i].age << " " << p[i].gender << " "
+                  << p[i].diagnosis << endl;
+            }
+
+            f.close();
+            cout << "saved\n";
+        }
+
+    } while (choice != 6);
+
+    cout << "Good Bye!\n";
+
+    delete[] p;
+    return 0;
+}
