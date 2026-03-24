@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+// class to hold 5 columns
+class Data {
+public:
+    string a, b, c, d, e;
+};
+
+// print one row
+void show(Data x) {
+    cout << x.a << " | " << x.b << " | " << x.c << " | "
+         << x.d << " | " << x.e << endl;
+}
+
+int main() {
+    ifstream file("data.csv");
+
+    // check if file works
+    if (!file) {
+        cout << "file not found\n";
+        return 1;
+    }
+
+    string line;
+    int count = 0;
+
+    getline(file, line); // skip header
+
+    while (getline(file, line) && count < 10) {
+        stringstream ss(line);
+        Data x;
+
+        // get 5 fields
+        getline(ss, x.a, ',');
+        getline(ss, x.b, ',');
+        getline(ss, x.c, ',');
+        getline(ss, x.d, ',');
+        getline(ss, x.e, ',');
+
+        show(x);
+        count++;
+    }
+
+    file.close();
+    return 0;
+}
