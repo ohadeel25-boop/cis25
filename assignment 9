@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+// base class
+class User {
+public:
+    string username;
+
+    // virtual function
+    virtual void accessLevel() {
+        cout << "Basic user access\n";
+    }
+};
+
+// employee class
+class Employee : public User {
+public:
+    void accessLevel() {
+        cout << "Employee: can view inventory\n";
+    }
+};
+
+// manager class
+class Manager : public User {
+public:
+    void accessLevel() {
+        cout << "Manager: can add/update inventory\n";
+    }
+};
+
+// admin class
+class Admin : public User {
+public:
+    void accessLevel() {
+        cout << "Admin: full access\n";
+    }
+};
+
+int main() {
+    int choice;
+
+    cout << "1 Employee\n2 Manager\n3 Admin\n";
+    cout << "Select role: ";
+    cin >> choice;
+
+    if (choice == 1) {
+        Employee e;
+        e.accessLevel();
+    }
+    else if (choice == 2) {
+        Manager m;
+        m.accessLevel();
+    }
+    else if (choice == 3) {
+        Admin a;
+        a.accessLevel();
+    }
+
+    return 0;
+}
