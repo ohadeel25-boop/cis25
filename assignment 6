@@ -1,0 +1,73 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+// Item class
+class Item {
+public:
+    string name;
+    double price;
+    int quantity;
+
+    double getTotalPrice() {
+        return price * quantity;
+    }
+};
+
+// Show menu
+void showMenu() {
+    cout << "\n1. Add Item\n2. View Cart\n3. Exit\n";
+}
+
+// Add item → save to file
+void addItem() {
+    Item item;
+    ofstream file("cart.txt", ios::app);
+
+    cout << "Enter name: ";
+    cin >> item.name;
+    cout << "Enter price: ";
+    cin >> item.price;
+    cout << "Enter quantity: ";
+    cin >> item.quantity;
+
+    file << item.name << " " << item.price << " " << item.quantity << endl;
+    file.close();
+
+    cout << "Item saved!\n";
+}
+
+// View cart → read file + total
+void viewCart() {
+    ifstream file("cart.txt");
+    Item item;
+    double total = 0;
+
+    cout << "\n--- Cart ---\n";
+
+    while (file >> item.name >> item.price >> item.quantity) {
+        double itemTotal = item.getTotalPrice();
+        cout << item.name << " $" << item.price << " x" << item.quantity
+             << " = $" << itemTotal << endl;
+        total += itemTotal;
+    }
+
+    file.close();
+    cout << "Total: $" << total << endl;
+}
+
+int main() {
+    int option;
+
+    do {
+        showMenu();
+        cin >> option;
+
+        if (option == 1) addItem();
+        else if (option == 2) viewCart();
+
+    } while (option != 3);
+
+    cout << "Thank you for shopping!\n";
+    return 0;
+}
