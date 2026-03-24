@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    // Fixed: added missing semicolon
+    float n1, n2, n3;
+
+    cout << "Enter three numbers: ";
+
+    // Fixed: corrected input (was n1 > n1 > n3)
+    cin >> n1 >> n2 >> n3;
+
+    // Fixed: changed to proper nested if instead of separate ifs
+    if (n1 >= n2) {
+        // Fixed: nested check for n1 vs n3
+        if (n1 >= n3) {
+            cout << "Largest number: " << n1;
+        } else {
+            cout << "Largest number: " << n3;
+        }
+    } else {
+        // Fixed: compare n2 and n3
+        if (n2 >= n3) {
+            cout << "Largest number: " << n2;
+        } else {
+            cout << "Largest number: " << n3;
+        }
+    }
+
+    return 0;
+}
