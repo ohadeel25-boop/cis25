@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+// Function for Add
+void addItem() {
+    cout << "Item added\n";
+}
+
+// Function for View
+void viewItems() {
+    cout << "Viewing items\n";
+}
+
+// Function to show menu
+void showMenu() {
+    cout << "\n1. Add\n2. View\n3. Exit\n";
+}
+
+int main() {
+    int option;
+
+    do {
+        showMenu();
+        cin >> option;
+
+        if (option == 1) addItem();
+        else if (option == 2) viewItems();
+
+    } while (option != 3);
+
+    cout << "Goodbye\n";
+    return 0;
+}
